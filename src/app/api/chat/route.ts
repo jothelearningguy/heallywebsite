@@ -2,8 +2,12 @@ import { OpenAI } from 'openai';
 import { NextResponse } from 'next/server';
 
 // OpenAI Configuration
+if (!process.env.OPENAI_API_KEY) {
+  console.error('OPENAI_API_KEY is not set in environment variables');
+}
+
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 // HEALLY FAQs for better responses
@@ -75,6 +79,12 @@ function checkFAQs(message: string): string | null {
 // Generate AI response
 async function generateResponse(message: string, context: ConversationContext): Promise<string> {
   try {
+    // Check for API key
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('OpenAI API key is not configured');
+      return "I apologize, but I'm not able to process requests at the moment. Please contact support for assistance.";
+    }
+
     // Check for greetings
     if (!context.hasGreeted) {
       return "Hi! 👋 I'm HEALLY AI, your personal learning companion. I'm here to help you discover how AI can transform your learning journey. What would you like to know? 🚀";
