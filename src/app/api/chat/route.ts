@@ -82,7 +82,7 @@ async function generateResponse(message: string, context: ConversationContext): 
     // Check for API key
     if (!process.env.OPENAI_API_KEY) {
       console.error('OpenAI API key is not configured');
-      return "I apologize, but I'm not able to process requests at the moment. Please contact support for assistance.";
+      return "I apologize, but our AI service is currently undergoing maintenance. Please try again in a few minutes! 🔧";
     }
 
     // Check for greetings
